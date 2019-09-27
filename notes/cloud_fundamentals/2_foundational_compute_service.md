@@ -146,3 +146,54 @@ By the end of this lab, you will be able to:
 4. **Cleanup & Disable EC2 Instance:** To avoid recurring charges for leaving an instance running, let’s disable the EC2 instance and terminate the VPC
 - >From the EC2 Dashboard, select the instance just created, click Actions, then Instance State, and then select Terminate.
 - >From the VPC Dashboard, select the VPC just created, click Actions, then Delete VPC.
+
+# Why do we need compute power in in the cloud?
+The ability to run application code in the cloud without having to provision or manage servers is a software developer's dream come true. Placing your code in an environment that automatically scales offers high availability and fault tolerance, frees you up to focus on what's most important, adding new features to or fixing issues with your existing systems. 
+
+Compute power in the cloud is a faster way to build applications. Compute power in the cloud provides no servers to manage, the ability to continuously scale, the ability to run code on demand in response to events, and you only pay when your code runs. 
+
+**Compute Power In The Cloud**
+
+Compute power in the cloud is a faster way to build applications, providing:
+
+- no servers to manage (i.e. serverless)
+- ability to continuously scale
+- ability to run code on demand in response to events
+- pay only when your code runs
+
+# Lambda
+AWS Lambda provide you compute power in the cloud by letting you execute code without standing up or managing servers. Just think of Lambda as a chunk of code that runs in the cloud, and **it's meant to do one specific task**. Lambda should really focus on one specific task because there's currently a **time limit of 15 minutes** which was recently increased from 5 minutes.
+
+An application developed using Lambda is considered to be **serverless** because you're not concerned with the server your code is running on. 
+
+Lambda offers several **benefits**. 
+
+- You only pay for the compute time you consume and you are not charged when your code is not running. 
+- You can author code locally and upload it OR you can write code directly via the **Lambda Console**. 
+- Lambda is **event-driven**, so you can run your code based on certain events happening, like a file upload, or a record being inserted in a database. 
+- Once the code is uploaded, the environment takes care of everything needed to run and scale your code. 
+
+Lambda supports several **run-time environments**:
+
+- Node.js
+- Python
+- Ruby
+- Java
+- Go
+- .NET
+
+**NOTE:** If you need a language that's not supported, you can use custom run-times, so the environment is very flexible.
+
+**Lambda**
+
+AWS Lambda provides you with computing power in the cloud by allowing you to execute code without standing up or managing servers.
+
+**Tips**
+
+- Lambda is found under the Compute section on the AWS Management Console.
+- Lambdas have a time limit of 15 minutes.
+- The code you run on AWS Lambda is called a “Lambda function.”
+- Lambda code can be triggered by other AWS services.
+- AWS Lambda supports Java, Go, PowerShell, Node.js, C#/.NET, Python, and Ruby. There is a Runtime API that allows you to use other programming languages to author your functions.
+- Lambda code can be authored via the console.
+
