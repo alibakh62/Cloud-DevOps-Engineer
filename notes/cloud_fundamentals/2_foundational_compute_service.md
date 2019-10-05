@@ -119,33 +119,33 @@ By the end of this lab, you will be able to:
 
 ### Steps:
 1. **Access VPC service from AWS Management Console**
-- >On the AWS Management Console page, type vpc in the Find Services box and then select VPC.
-- >Click the Launch VPC Wizard button and select VPC with a Single Public Subnet. Important: In the VPC Name text box, enter a name for the VPC, and then select the first AZ from the Availability Zone dropdown. Leave everything else as the defaults.
-- >Select Create VPC button.
-- >You should see the VPC Successfully Created page, click the OK button in the far right. Important: You should see a table that lists all of the VPCs, make a note of the one just created.
+- >On the AWS Management Console page, type `vpc` in the `Find Services` box and then select `VPC`.
+- >Click the `Launch VPC Wizard` button and select `VPC with a Single Public Subnet`. _**Important:**_ In the `VPC Name` text box, enter a name for the VPC, and then select the first AZ from the `Availability Zone` dropdown. Leave everything else as the defaults.
+- >Select `Create VPC` button.
+- >You should see the `VPC Successfully Created` page, click the OK button in the far right. _**Important:**_ You should see a table that lists all of the VPCs, make a note of the one just created.
 2. **Launch an EC2 instance**
-- >Navigate to the EC2 console page, by clicking on Services in the upper left-hand menu. Type EC2 in the text box and click on EC2 found in the search results.
-- >On the EC2 Dashboard page, click on Instances in the left-hand navigation.
-- >Click Launch Instance.
-- >Select the Amazon Linux 2 AMI (HVM), SSD Volume Type Amazon Machine Image (AMI). Important: You are free to choose a different AMI, but to avoid excessive charges, pick one that says, Free Tier Eligible.
-- >For the Instance Type, select the free-tier instance type of t2.micro.
-- >Click on Next: Configure Instance Details.
-- >Enter the 1 for the Number of Instances.
+- >Navigate to the EC2 console page, by clicking on `Services` in the upper left-hand menu. Type `EC2` in the text box and click on `EC2` found in the search results.
+- >On the EC2 Dashboard page, click on `Instances` in the left-hand navigation.
+- >Click `Launch Instance`.
+- >Select the `Amazon Linux 2 AMI (HVM), SSD Volume Type` Amazon Machine Image (AMI). _**Important:**_ You are free to choose a different AMI, but to avoid excessive charges, pick one that says, `Free Tier Eligible`.
+- >For the `Instance Type`, select the free-tier instance type of `t2.micro`.
+- >Click on `Next: Configure Instance Details`.
+- >Enter the 1 for the `Number of Instances`.
 - >For Purchasing option, leave unchecked.
 - >For Network, select the VPC that was created in the previous step, and then select the subnet in to which to launch the instance.
 - >Keep the other default settings on this page as is.
 3. **Attach an EBS volume**
-- >Click on Next: Add Storage to attach an EBS volume. Important: Here we already see there is a root volume (or device) attached to your instance, this is an EBS volume. We are going to add additional storage.
-- >To attach additional storage, click on Add New Volume.
-- >Select Delete on Termination and keep the other default settings.
-- >Click Review and Launch.
-- >Click Launch Instances.
-- >Generate and download a new key pair and then launch the instance. Important: This will allow you to SSH into your instance from your local machine. This is a one-time process, so generate and download the new key pair now.
-- >The launch will take a couple of minutes, select View Instances during the wait.
+- >Click on `Next: Add Storage` to attach an EBS volume. _**Important:**_ Here we already see there is a root volume (or device) attached to your instance, this is an EBS volume. We are going to add additional storage.
+- >To attach additional storage, click on `Add New Volume`.
+- >Select `Delete on Termination` and keep the other default settings.
+- >Click `Review and Launch`.
+- >Click `Launch Instances`.
+- >Generate and download a new key pair and then launch the instance. _**Important:**_ This will allow you to SSH into your instance from your local machine. This is a one-time process, so generate and download the new key pair now.
+- >The launch will take a couple of minutes, select `View Instances` during the wait.
 - >Check the instance state, it should say running.
 4. **Cleanup & Disable EC2 Instance:** To avoid recurring charges for leaving an instance running, let’s disable the EC2 instance and terminate the VPC
-- >From the EC2 Dashboard, select the instance just created, click Actions, then Instance State, and then select Terminate.
-- >From the VPC Dashboard, select the VPC just created, click Actions, then Delete VPC.
+- >From the EC2 Dashboard, select the instance just created, click `Actions`, then `Instance State`, and then select `Terminate`.
+- >From the VPC Dashboard, select the VPC just created, click `Actions`, then `Delete VPC`.
 
 # Why do we need compute power in in the cloud?
 The ability to run application code in the cloud without having to provision or manage servers is a software developer's dream come true. Placing your code in an environment that automatically scales offers high availability and fault tolerance, frees you up to focus on what's most important, adding new features to or fixing issues with your existing systems. 
@@ -196,4 +196,107 @@ AWS Lambda provides you with computing power in the cloud by allowing you to exe
 - Lambda code can be triggered by other AWS services.
 - AWS Lambda supports Java, Go, PowerShell, Node.js, C#/.NET, Python, and Ruby. There is a Runtime API that allows you to use other programming languages to author your functions.
 - Lambda code can be authored via the console.
+
+**Resources**
+
+- [AWS Lambda](https://aws.amazon.com/lambda/)
+
+# Lambda - Demo
+
+See the video [here](https://youtu.be/grV-jThkxDM).
+
+# Lab - Create and Execute a Lambda
+By the end of this lab, you will be able to:
+
+- Author a Lambda function using Node.js via the console
+- Test a Lambda function via the console
+
+### Steps:
+1. **Create a Lambda Function**
+- >On the AWS Management Console page, type `lambda` in the `Find Services` box and then select `Lambda`.
+- >Click the “Create function” button and select `Author from scratch`.
+- >Enter a `Function name` and select `Node.js 8.10` as the runtime.
+- >For `Permission`, click `Choose or create an execution role`, and select `Create a new role with basic Lambda permissions`.
+- >Click `Create function`.
+2. **Modify a Lambda Function**
+- >Scroll down to the code for the Lambda function.
+- >Replace the code on Line 5 with the statement below:
+```js
+body: JSON.stringify('Hello ' + event.key1 + ' from Lambda!'),
+```
+- >Click the `Save` button in the upper right-hand corner.
+- >Scroll down to the `Basic Settings` section.
+- >>For the Description, enter `Udacity Function`.
+- >>Change the `Timeout` from 3 seconds to 10 minutes.
+- >>Click the `Save` button in the upper right-hand corner.
+3. **Test a Lambda Function**
+- >Click on the `Test` button in the upper right-hand corner.
+- >Ensure the `Event template` is `Hello World`.
+- >For the `Event name` enter `TestEvent`. _**Important:**_ The name cannot contain spaces.
+- >Update the JSON to the statement below, replacing the statement with your name.
+```json
+{
+"key1": "Place your name here"
+}
+```
+4. **Click `Create`.**
+5. **Click the `Test` button in the upper right-hand corner again.**
+6. **Scroll up to see the output in the `Execution Results` pane.**
+7. **Review your results in the window.**
+
+# Elastic Beanstalk
+We've discussed the need for servers in the cloud. In our EC2 lab, we stood up our own server. AWS provides services that make the process of standing up servers and deploying applications to them easier. 
+
+**Elastic Beanstalk** is an orchestration service that allows you to deploy a web application at the touch of button by spinning up or provisioning all of the services that you need to run your application. This service is essential because it automates the process of getting applications setup on the AWS infrastructure. 
+
+At a click of a button, Elastic Beanstalk can create an EC2 instance, setup auto-scaling, and an elastic load balancer for you. You still retain control of the services automatically spun up, and you can administer them separately if you so choose. 
+
+Elastic Beanstalk supports Java, PHP, Python, .NET, Node.js, Ruby, and Docker, and several common cert rephrase, and several common servers like Apache, HTTP, Tomcat, Engine X, IIS, etc. 
+
+Elastic Beanstalk can even spin up database instances for you, VPCs and security groups all while deploying your code. 
+
+**Resources**
+
+- [AWS Elastic Beanstalk Overview](https://aws.amazon.com/elasticbeanstalk/)
+- [What is AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
+
+# Lab - Deploy App to Beanstalk
+In this hands-on exercise, you will use Elastic Beanstalk to deploy a web application to the cloud.
+
+**DOWNLOAD THIS:** [WAR file](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/June/5d0296f8_udacity/udacity.war) containing the web application code.
+
+### Steps:
+1. **Access Elastic Beanstalk service from AWS Management Console**
+- >On the AWS Management Console page, type `elastic beanstalk` in the `Find Services` box and then select `Elastic Beanstalk`.
+- >If this is your first time accessing Elastic Beanstalk, click the `Get started` button.
+- >Enter an `Application name`.
+- >Under `Platform`, click the dropdown for `Choose a platform`. Select `Tomcat`.
+- >Under `Application code`, select `Upload your code`. Click the `Upload` button.
+- >Under `Upload your code`, make sure `Local file` is selected for `Source code origin`.
+- >Click `Choose File` and upload the downloaded WAR file (link above in pre-requisites), `udacity.war`.
+- >Click the `Upload` button.
+- >Click the `Create application` button. _**Important:**_ It will take about 10 minutes for your application to be created. There are several resources that need to be spun up to support your application. Your application is created once you see a green check mark and the `Health` of your application is `Ok`.
+- >After the application is created, copy the application’s URL. _**Important:**_ The URL can be found on the top of the page, to the right of your application’s name.
+2. **Test the deployed web application in a browser**
+- >Navigate to a web browser like Chrome or Safari.
+- >Paste the application URL and append `/message` on the end of the URL.
+- >Upon successfully accessing that URL, you will see the text `Hello World` in your browser window.
+3. **Inspect the EC2 instance created for you**
+- >Navigate to the EC2 console and inspect the instance that was created for you. The instance has the same name as your application. You can administer and manage this EC2 as if you created it yourself.
+4. **Cleanup and delete resources**
+- >To clean up the resources to avoid recurring charges, navigate back to the Elastic Beankstalk console.
+- >Select your application.
+- >Select the `Actions` button in the upper-right hand corner.
+- >Select `Terminate environment`.
+- >Enter the name of the application to be deleted.
+- >Click the `Terminate` button.
+- >After the application is terminated, you will be brought to the main page for the application.
+- >Click on the `Actions` button in the upper right-hand corner.
+- >Select `Delete application`.
+- >Enter the name of your application.
+- >Click the `Delete` button.
+
+# Recep
+
+See the video [here](https://youtu.be/0Ig9MwaxQq0).
 
