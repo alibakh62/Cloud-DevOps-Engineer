@@ -189,6 +189,128 @@ RedShift stores data in a **column format** as opposed to a **row** store like a
 - [What Is Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
 - [Amazon Redshift Overview](https://aws.amazon.com/redshift/)
 
+# Lab - RDS
+In this hands-on exercise, you will create a MySQL database instance using RDS.
+
+### Steps:
+1. **Launch MySQL Database**
+- >On the AWS Management Console page, type `rds` in the `Find Services` box and then select `RDS`.
+- >On the left-hand side, click `Databases`.
+- >Click `Create database`.
+- >Under engines option, select `MySQL` and click the `Next` button
+- >Under `Instance specifications`, leave the defaults.
+- >Under the `Settings` section:
+- >>Enter a name for the instance under `DB instance identifier`
+- >_**Note:**_ This will not be the database name.
+- >Enter a `Master username`
+- >Enter a `Master password` and confirm the password.
+- >Click `Next`
+- >For `Virtual Private Cloud (VPC)`, select `Create new VPC`.
+- >Ensure `Create new DB Subnet Group` is selected.
+- >Leave the defaults for `Subnet group`, `Public accessibility`, `Availability zone`, and `VPC security groups`.
+- >Under `Database options`, enter a `Database name` and leave the rest as defaults.
+- >Under `Deletion protection`, uncheck `Enable deletion protection`. _**Important:**_ In a real production scenario, you would leave this option checked.
+- >Click Create database`.
+2. **View Instance Details**
+- >Once your database is created, open it by clicking on `View DB Instance details`.
+- >Make sure the `DB instance status` shows `available`.
+- >Scroll through and observe how the instance is configured.
+3. **Delete Database Instance** Clean up the resources to avoid recurring charges.
+- >From the RDS Dashboard homepage, select `Databases` from the left-hand navigation pane.
+- >Select your newly created database by clicking on the name radio button next to the name.
+- >From the `Actions` menu, select `Delete`.
+- >In the confirmation popup:
+- >>Uncheck `Create final snapshot`
+- >>Select 
+```text
+I acknowledge that upon instance deletion, automated backups, including system snapshots and point-in-time recovery, will no longer be available.
+```
+- >>Enter the requested confirmation for deletion.
+- >>Click the `Delete` button
+
+# Why do we need content delivery in the cloud?
+A **Content Delivery Network (CDN)** speeds up delivery of your static and dynamic web content such as web-pages, casecading style sheets, JavaScript logic, and images. Typically, content is cached or stored for a certain period of time, and when a user requests your website or other web content, content is pulled from the cached speeding up the delivery of the content to your users. 
+
+A CDN reduces latency and decreases the load on your servers, which provides a good end user experience to your customers and users of your applications. **Latency** simply means the time it takes to respond to a request. So, from the time a user attempts to access your website to the time it takes for your website to load. High latency causes your website to take a long time to load while low latency causes your website to load quickly. Low latency is a good and CDNs assist with this. 
+
+To wrap up: A Content Delivery Network (or CDN) speeds up delivery of your static and dynamic web content by caching content in an Edge Location close to your user base.
+
+### Benefits
+The benefits of a CDN includes:
+
+- low latency
+- decreased server load
+- better user experience
+
+# Cloud Front
+Cloud Front is Amazon service for content delivery. Cloud Front speeds up the delivery for your content through Amazon's worldwide network of many data centers called **edge locations**. As in a typical CDN, your content is cached or stored for a certain period of time at an edge location that is close to the user. When a user requests your website or other web content, the edge location is consulted first. If the content is not there, then your content is pulled from the origin or the original source, which may be far away from the user's location, then it's stored at the edge location and then delivered to your users. All subsequent requests should now be faster because the content is now stored at the edge location. 
+
+You can configure how long an item remains cached before a refresh, or you can manually expire or remove content from the cache, should it need to be changed.
+
+### Cloud Front
+CloudFront is used as a global content delivery network (CDN). Cloud Front speeds up the delivery of your content through Amazon's worldwide network of mini-data centers called Edge Locations.
+
+CloudFront works with other AWS services, as shown below, as an origin source for your application:
+- Amazon S3
+- Elastic Load Balancing
+- Amazon EC2
+- Lambda@Edge
+- AWS Shield
+  
+### Tips
+- CloudFront is found under the Networking & Content Delivery section on the AWS Management Console.
+- Amazon countinously adds new Edge Locations.
+- CloudFront ensures that end-user requests are served from the closest edge location.
+- CloudFront works with non-AWS origin sources.
+- You can use GeoIP blocking to serve content (or not serve content) to specific countries.
+- Cache control headers determine how frequently CloudFront needs to check the origin for an updated version your file.
+- The maximum size of a single file that can be delivered through Amazon CloudFront is 20 GB.
+
+**Resources**
+
+- [Amazon CloudFront Overview](https://aws.amazon.com/cloudfront/)
+- [What is Amazon CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+
+# Demo - Cloud Front
+
+See the video [here](https://youtu.be/ST3ZOvVo36s).
+
+# Lab - S3 & Cloud Front
+In this hands-on exercise, you will create a S3 bucket with a Cloud Front distribution to speed up our the delivery of content to our website.
+
+### Steps:
+1. **Create S3 Bucket**
+- >On the AWS Management Console page, type `S3` in the `Find Services` box and then select `S3`.
+- >Click `Create bucket`
+- >Enter a `Bucket name`.
+- >>_**Note:**_ Bucket names must be globally unique.
+- >Click the `Create` button.
+- >Once the bucket is created, click on the name of the bucket to open the bucket to the contents.
+2. **Upload Object to Bucket**
+- >Once the bucket is open to its contents, click the `Upload` button.
+- >Click the `Add Files` button.
+- >Select a file from your local computer to upload.
+- >Click `Open`.
+- >Click `Upload`.
+3. **Create CloudFront Distribution**
+- >Select `Services` from the top left corner.
+- >Enter `cloud front` in the `Find a service by name or feature` text box and select `Cloud Front`.
+- >Click `Create Distribution`.
+- >Under the `Web` delivery method, select `Get Started`.
+- >Under `Origin Settings`:
+- >Under `Origin Domain Name`, select the S3 bucket that you just created.
+- >Under `Origin Path`, enter `/` to indicate the root level.
+- >Leave the defaults for the rest of the options.
+- >Click `Create Distribution`.
+- >>_**Note:**_ It may take up to 10 minutes for the CloudFront Distribution to be created.
+4. **Delete Bucket and Distribution**
+- >To delete the Cloud Front distribution, click on the radio button next to the `Delivery Method` for the distribution. Click `Disable` and then `Yes`, Disable. Click `Close`.
+- >Once the distribution is disabled, you can delete it by selecting the radio button next to the `Delivery Method` and clicking the `Delete` button.
+- >To delete the S3 bucket, navigate to S3, but clicking on `Services` and typing `S3` in the `Find Services` box and then select `S3`.
+- >Select the radio button next to the name of the bucket you want to delete.
+- >Click `Delete`.
+- >Type the name of the bucket to confirm deletion.
+- >Click the `Confirm` button.
 
 
   
