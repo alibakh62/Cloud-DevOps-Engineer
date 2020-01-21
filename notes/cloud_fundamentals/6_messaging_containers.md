@@ -63,3 +63,137 @@ Messaging queues improve:
 -   scalability
 -   user experience
 
+# Simple Queue Service (SQS)
+Amazon **Simple Queue Service** is a fully managed queuing service that allows you to integrate queuing functionality in your application. With SQS, you can send, store, and receive messages between applications without losing messages. 
+
+SQS offers two types of message queues: **Standard**, and **FIFO**. 
+
+**Standard queues** offer _**Best-effort Ordering**_, while **SQS FIFO queues** are designed to guarantee that messages are processed exactly once in the exact order they were added to the queue. 
+
+Let's say you have created a course registration system, and to improve scalability, you send account creation and course registration messages to a queue. In order for a student to register for a course, their account must first be created then they can be registered. The ordering of these steps is very important. You do not want a student to attempt to register for a course before their account is created. Since ordering is important, a FIFO queue should be used in this case.
+
+[video](https://youtu.be/QdmaZx1jkcw).
+
+Amazon Simple Queue Service (SQS) is a fully managed message queuing service that allows you to integrate queuing functionality in your application. SQS offers two types of message queues: standard and FIFO.
+
+## Features
+
+-   send messages
+-   store messages
+-   receive messages
+
+## Tips
+
+-   The Simple Queue Service (SQS) is found under the Application Integration on the AWS Management Console.
+-   FIFO queues support up to 300 messages per second.
+-   FIFO queues guarantee the ordering of messages.
+-   Standard queues offer best-effort ordering but no guarantees.
+-   Standard queues deliver a message at least once, but occasionally more than one copy of a message is delivered.
+
+#### Resources
+
+----------
+
+-   [Amazon SQS Overview](https://aws.amazon.com/sqs/)
+-   [What is Amazon SQS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+
+# Demo - SQS
+See the demo [here](https://youtu.be/3m_9ja6qrNw).
+
+# Lab - SNS
+In this hands-on exercise, you will learn how to send alerts via SNS by creating a topic, subscribing to a topic, and publishing an alert message to a topic.
+
+## Prerequisites:
+
+-   AWS Account
+
+## Topics Covered:
+
+By the end of this lab, you will be able to:
+
+-   Create a topic
+-   Subscribe to a topic
+-   Publish a message to a topic
+
+## Steps:
+
+1.  **Create a Topic**
+    -   On the AWS Management Console page, type  `sns`  in the  `Find Services`  box and then select  `Simple Notification Service`. The SNS Dashboard appears.
+    -   On the left-hand menu, click on  `Topics`.
+    -   Click on  `Create topic`.
+    -   Enter a name for your topic in the  `Name`  field.
+    -   In the  `Access policy – optional`  section, for the  `Define who can publish messages to the topic`  section, ensure  `Everyone`  is selected allowing anyone to publish to the topic. For the  `Define who can subscribe to this topic`  section, ensure  `Everyone`  is selected.
+    -   Click  `Create Topic`. The topic screen will display.
+2.  **Subscribe to a Topic**
+    -   Click  `Create subscription`  from the  `Subscriptions`  section.
+    -   For the  `Protocol`  field, select  `Email`.
+    -   For the  `Endpoint`, enter the email that should receive the notifications.
+    -   Click  `Create subscription`.
+    -   The subscription page will display and the status will be  `Pending confirmation`. After your subscription is created, you must confirm it.
+    -   In your email client, check the email address that you provided for the  `Endpoint`  and choose Confirm subscription in the email from Amazon SNS.
+    -   In your web browser, a subscription confirmation screen appears.
+3.  **Publish a Message to a Topic**
+    -   From the menu on the left-hand side, click on  `Topics`.
+    -   Select the topic you created earlier and then click  `Publish message`.
+    -   Enter a subject in the  `Subject`  field.
+    -   Enter a value in the  `Message body to send to the endpoint`  box in the  `Message body`  section.
+    -   Scroll down and click  `Publish message`.
+    -   In your email client, read the email from Amazon SNS.
+
+# Why do we need containers?
+Enterprises are adopting container technology at an explosive rate. **Docker** is the leading container technology. There are several container orchestration services that help you manage your Docker clusters. **Kubernetes** is a container orchetration system for Docker containers similar to **Docker Swarm**. 
+
+## Why are containers so popular?
+A container consists of everything an application needs to run. The application itself and its dependencies like libraries, utilities, configuration files, etc. all bundled into one package. 
+
+Instead of having to rebuild your application and its environment from scratch as it moves from environment to environment, say from development to production, you can easily move the entire container from environment to envinronment with any issues. Each container is an independent component that can run on its own. 
+
+Let's say you have a huge monolith application, that you're migrating to a microservices architecture. The **microservices architecture** decomposes large complex monoliths systems into discrete, individual stand-alone components that can communicate among themselves, working together, or with external systems. A Docker container works well with the microservices use case because each microservice is its own independent component with no interdependencies.
+
+[video](https://youtu.be/WXuXp3WSz6E)
+
+Enterprises are adopting container technology at an explosive rate. A container consists of everything an application needs to run: the application itself and its dependencies (e.g. libraries, utilities, configuration files), all bundled into one package.
+
+Each container is an independent component that can run on its own and be moved from environment to environment.
+
+**We will be going more in-depth on the topic of Microservices in Course 4: Microservices at Scale using AWS & Kubernetes**
+
+-   [General overview about Docker containers](https://docs.docker.com/engine/docker-overview/)
+-   [Documentation on Docker Containers](https://www.docker.com/resources/what-container)
+
+# Elastic Container Service (ECS)
+Orchestration tools are used for automating deployment, scaling, and managing your containerized applications. **Amazon ECS** is a container orchestration service that supports Docker, assisting with managing your containers. There are several useful features including:
+
+- launching and stopping Docker containers
+- scaling your applications
+- querying the state of your applications
+- etc.
+
+It is really a convenience type service to assist you with the administration of your Docker containers. 
+
+[video](https://youtu.be/W3XqJWl38k8).
+
+ECS is an orchestration service used for automating deployment, scaling, and managing of your containerized applications. ECS works well with Docker containers by:
+
+-   launching and stopping Docker containers
+-   scaling your applications
+-   querying the state of your applications
+
+## Tips
+
+-   ECS is under the Compute section on the AWS Management Console.
+-   You can schedule long-running applications, services, and batch processeses using ECS.
+-   Docker is the only container platform supported by Amazon ECS.
+
+#### Resources
+
+----------
+
+-   [Amazon ECS Overview](https://aws.amazon.com/ecs/)
+-   [What is Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
+
+# Demo - ECS
+See the demo [here](https://youtu.be/2jVSICPoyNE).
+
+
+
